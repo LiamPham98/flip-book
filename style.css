@@ -60,9 +60,57 @@ html, body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 10px;
-    border: 1px solid rgba(0, 0, 0, 0.11);
     aspect-ratio: 9/16 !important;
+    cursor: pointer;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
+
+/* Enable dragging from edges */
+.flipbook .page.can-drag {
+    cursor: grab;
+}
+
+.flipbook .page.can-drag:active {
+    cursor: grabbing;
+}
+
+/* Add visual feedback for draggable edges */
+.flipbook .page::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 20%;
+    opacity: 0;
+    transition: opacity 0.2s;
+    pointer-events: none;
+    z-index: 2;
+}
+
+.flipbook .page::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 20%;
+    right: 0;
+    opacity: 0;
+    transition: opacity 0.2s;
+    pointer-events: none;
+    z-index: 2;
+}
+
+.flipbook .page.can-drag::before,
+.flipbook .page.can-drag::after {
+    opacity: 0.1;
+    background: linear-gradient(to right, rgba(0,0,0,0.2), transparent);
+}
+
+.flipbook .page.can-drag::after {
+    background: linear-gradient(to left, rgba(0,0,0,0.2), transparent);
 }
 
 .flipbook-viewport {
@@ -77,6 +125,35 @@ html, body {
 
 .flipbook-viewport .page {
     background-color: white;
+}
+
+.flipbook .page.odd::before {
+    content: '';
+    position: absolute;
+    background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAG8AAAABCAYAAADQO/BKAAAASElEQVQYlZ2NSQrAMAwDR0n//2X3kBpMkEOoQGjBiyJCLJxUTf7bOV+VJifC+KrR5Fu6PYxHkoDxMf0s3TQcwNPoPrffyh96AcOpHU0esqcJAAAAAElFTkSuQmCC);
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 130px;
+    height: 100%;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    transform: rotate(180deg);
+}
+
+.flipbook .page.even::before {
+    content: '';
+    position: absolute;
+    background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAG8AAAABCAYAAADQO/BKAAAASElEQVQYlZ2NSQrAMAwDR0n//2X3kBpMkEOoQGjBiyJCLJxUTf7bOV+VJifC+KrR5Fu6PYxHkoDxMf0s3TQcwNPoPrffyh96AcOpHU0esqcJAAAAAElFTkSuQmCC);
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 130px;
+    height: 100%;
+    z-index: 1;
+    right: 0;
+    top: 0;
 }
 
 .flipbook img {
