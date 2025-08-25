@@ -15,6 +15,9 @@
         <img src="image/1.webp" alt="" />
       </div>
       <div class="">
+        <iframe width="376" height="669" src="https://www.youtube.com/embed/xW9csLCLTL4" title="Bắn Pháo hoa siêu hoành tráng trung thu Tuyên Quang" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+      </div>
+      <div class="">
         <img src="image/17.png" alt="" />
       </div>
       <div class="">
@@ -80,6 +83,17 @@
     <source src="./image/page-flip.mp3" type="audio/mpeg">
   </audio>
 
+  <!-- Audio random list -->
+  <audio id="randomAudio1">
+    <source src="./image/music-1.mp3" type="audio/mpeg">
+  </audio>
+  <audio id="randomAudio2">
+    <source src="./image/music-2.mp3" type="audio/mpeg">
+  </audio>
+  <audio id="randomAudio3">
+    <source src="./image/music-3.mp3" type="audio/mpeg">
+  </audio>
+
   <script src="jquery.js"></script>
   <script src="turn.js"></script>
   <script>
@@ -113,8 +127,22 @@
     function playFlipSound() {
       const flipSound = document.getElementById('flipSound');
       flipSound.currentTime = 0; // Reset sound to start
-      flipSound.volume = 0.5; // Set appropriate volume
+      flipSound.volume = 1; // Set appropriate volume
       flipSound.play();
+    }
+
+    // Function to play random audio
+    function playRandomAudio() {
+      const audios = [
+        document.getElementById('randomAudio1'),
+        document.getElementById('randomAudio2'),
+        document.getElementById('randomAudio3')
+      ];
+      // Pause all audios first
+      audios.forEach(a => { a.pause(); a.currentTime = 0; });
+      // Random pick
+      const idx = Math.floor(Math.random() * audios.length);
+      audios[idx].play();
     }
 
     // Function to get relative position within an element
@@ -156,13 +184,16 @@
         acceleration: true,
         elevation: 50,
         gradients: true,
-        duration: 1500,
+        duration: 500,
         when: {
           turning: function(event, page, view) {
-            if (Math.abs(lastPeelValue - 0.5) > 0.1) {
+            // if (Math.abs(lastPeelValue - 0.5) > 0.1) {
               playFlipSound();
-            }
+            // }
           },
+          turned: function(event, page, view) {
+            playRandomAudio();
+          }
         }
       });
     }
